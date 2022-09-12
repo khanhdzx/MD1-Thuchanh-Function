@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tao Va Goi Ham</title>
+</head>
+<body>
+<script>
+  let confirmAnswer = confirm("Shall we play a game ?");
+  let theAnswer=processConfirm();
+  alert(theAnswer)
+
+  function processConfirm(answer){
+    let result ="";
+    if (answer){
+      result="Excellent";
+    } else {
+      result = " Maybe later"
+    }
+    return result;
+  }
+
+</script>
+</body>
+</html>

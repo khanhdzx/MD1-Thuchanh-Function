@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tr {
+            text-align: center;
+        }
+
+        input {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">---------------STUDENT MANAGE---------------</h1>
+<label id="validate"></label><br>
+<input id="newStudent" type="text" placeholder="Please fill in the from to create student ...">
+<button onclick="createStudent()">Create Student</button>
+<table border="1" style="width: 100%">
+    <tr>
+        <th>STT</th>
+        <th>NAME</th>
+        <th>Edit</th>
+    </tr>
+    <tbody id="drawTable">
+    <!--    <tr>-->
+    <!--        <td>1</td>-->
+    <!--        <td>Mai Gấu</td>-->
+    <!--    </tr>-->
+    <!--    <tr>-->
+    <!--        <td>2</td>-->
+    <!--        <td>Hai</td>-->
+    <!--    </tr>-->
+    </tbody>
+</table>
+<script>
+    //1 Show List student R - CRUD
+    let studentsList = ['Mai Gấu', 'Hai'];
+
+    function showListStudent() {
+        let drawTable = '';
+        for (let i = 0; i < studentsList.length; i++) {
+            // cách 1 : dùng cách thông thường
+            // drawTable+= '<tr>'+
+            //     '<td>'+(i+1)+'</td>'+
+            //     '<td>'+studentsList[i]+'</td>'+
+            //     '<td> <button onclick="updateStudent(i)">Edit</button></td>'
+            //     '</tr>'
+
+
+            //cách 2 : dùng string template '' biding biến qua ${}
+            drawTable += `<tr>
+            <td>${i + 1}</td>
+            <td>${studentsList[i]}</td>
+            <td><button onclick="updateStudent(${i})" >Edit</button></td>
+            </tr>`
+        }
+        document.getElementById('drawTable').innerHTML = drawTable;
+    }
+
+    showListStudent();
+
+    //2. Xây dựng hàm Create Student (C - CRUD)
+    function createStudent() {
+        let newStudent = document.getElementById('newStudent').value;
+        if (newStudent.trim() === '') {
+            document.getElementById('validate').innerHTML = '<label style="color: red">The name is required! Please try again</label>'
+        } else {
+            studentsList.push(newStudent);
+            document.getElementById('validate').innerHTML = '<label style="color: blue">Create Student Success!</label>'
+            showListStudent();
+        }
+
+    }
+
+    //3.  Xây dựng hàm Update Student (U - CRUD)
+    function updateStudent(id) {
+        let updateStudent = prompt('Enter the new Student to Update : ', ' Old Name ; ' + studentsList[id])
+        if (updateStudent.trim() === '') {
+            document.getElementById('validate').innerHTML = '<label style="color: red">The name is required! Please try again</label>'
+        } else {
+            if (updateStudent === studentsList[id]) {
+                document.getElementById('validate').innerHTML = '<label style="color: red">The name is required! Please try again</label>'
+            } else {
+                studentsList[id] = updateStudent;
+                document.getElementById('validate').innerHTML = '<label style="color: blue">Edit Success!</label>'
+                showListStudent();
+            }
+        }
+    }
+</script>
+</body>
+</html>
